@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Router, Route, Switch, Link } from "react-router-dom";
+// import { Router, Route, Switch, Link } from "react-router-dom";
+import { Router, Route } from "./react-router";
 import "./index.css";
 
 // import { Router, Route } from 'react-router';
@@ -11,9 +12,10 @@ import B from "./pages/b";
 import * as serviceWorker from "./serviceWorker";
 import RouterWrap from "./router";
 
-import { createBrowserHistory } from "history";
+import { createBrowserHistory, createHashHistory } from "./history";
 
 const history = createBrowserHistory();
+// const history = createHashHistory();
 
 // const history = createBrowserHistory();
 
@@ -28,12 +30,20 @@ window.addEventListener("popstate", function(e) {
 
 // ReactDOM.render(
 //     <Router history={history}>
-//         <Route exact path="/" component={A}></Route>
+//         <Route exact path="/a" component={A}></Route>
 //         <Route exact path="/b" component={B}></Route>
 //     </Router>,
 //     document.getElementById("root")
 // );
-ReactDOM.render(<App></App>, document.getElementById("root"));
+
+ReactDOM.render(
+    <Router history={history}>
+        <Route exact path="/a" component={A}></Route>
+        <Route exact path="/b" component={B}></Route>
+    </Router>,
+    document.getElementById("root")
+);
+// ReactDOM.render(<App></App>, document.getElementById("root"));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
