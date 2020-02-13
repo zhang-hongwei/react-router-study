@@ -51,10 +51,10 @@ class Route extends React.Component {
                         ? matchPath(location.pathname, this.props)
                         : context.match;
 
-                    console.log(
-                        "matchPath==>",
-                        matchPath(location.pathname, this.props)
-                    );
+                    // console.log(
+                    //     "matchPath==>",
+                    //     matchPath(location.pathname, this.props)
+                    // );
 
                     const props = { ...context, location, match };
 
@@ -66,8 +66,8 @@ class Route extends React.Component {
                         children = null;
                     }
 
-                    console.log("props.match==>", props.match);
-                    console.log("props.children==>", component);
+                    // console.log("props.match==>", props.match);
+                    // console.log("props.children==>", component);
 
                     return (
                         <RouterContext.Provider value={props}>

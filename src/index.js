@@ -1,31 +1,33 @@
-import React from "react";
-import ReactDOM from "react-dom";
-// import { Router, Route, Switch, Link } from "react-router-dom";
-import { Router, Route } from "./react-router";
-import "./index.css";
+import React from 'react';
+import ReactDOM from 'react-dom';
+// import { Router, Route, Switch, Link } from 'react-router-dom';
+import { Router, Route } from './react-router';
+import './index.css';
 
 // import { Router, Route } from 'react-router';
 // import { createBrowserHistory } from 'history';
-import App from "./App";
-import A from "./pages/a";
-import B from "./pages/b";
-import * as serviceWorker from "./serviceWorker";
-import RouterWrap from "./router";
+import App from './App';
+import A from './pages/a';
+import B from './pages/b';
+import * as serviceWorker from './serviceWorker';
+import RouterWrap from './router';
 
-import { createBrowserHistory, createHashHistory } from "./history";
+import { createBrowserHistory, createHashHistory } from './history';
+import Router1 from './pages/context/context.js';
+import Mycontext from './pages/context/mycontext';
 
 const history = createBrowserHistory();
 // const history = createHashHistory();
 
 // const history = createBrowserHistory();
 
-console.log("===>history", history);
+console.log('===>history', history);
 // window.onpopstate = function(event) {
 //     console.log(event);
 // };
 
-window.addEventListener("popstate", function(e) {
-    console.log("===>e", e);
+window.addEventListener('popstate', function(e) {
+    console.log('===>e', e);
 });
 
 // ReactDOM.render(
@@ -38,12 +40,18 @@ window.addEventListener("popstate", function(e) {
 
 ReactDOM.render(
     <Router history={history}>
+        <div>123</div>
         <Route exact path="/a" component={A}></Route>
         <Route exact path="/b" component={B}></Route>
     </Router>,
-    document.getElementById("root")
+    document.getElementById('root')
 );
-// ReactDOM.render(<App></App>, document.getElementById("root"));
+// ReactDOM.render(
+//     <Router1>
+//         <A></A>
+//     </Router1>,
+//     document.getElementById('root')
+// );
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

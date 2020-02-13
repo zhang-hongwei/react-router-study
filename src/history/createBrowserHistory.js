@@ -1,24 +1,24 @@
-import { createLocation } from "./LocationUtils.js";
+import { createLocation } from './LocationUtils.js';
 import {
     addLeadingSlash,
     stripTrailingSlash,
     hasBasename,
     stripBasename,
     createPath
-} from "./PathUtils.js";
-import createTransitionManager from "./createTransitionManager.js";
+} from './PathUtils.js';
+import createTransitionManager from './createTransitionManager.js';
 import {
     canUseDOM,
     getConfirmation,
     supportsHistory,
     supportsPopStateOnHashChange,
     isExtraneousPopstateEvent
-} from "./DOMUtils.js";
-import invariant from "./invariant.js";
-import warning from "./warning.js";
+} from './DOMUtils.js';
+import invariant from './invariant.js';
+import warning from './warning.js';
 
-const PopStateEvent = "popstate";
-const HashChangeEvent = "hashchange";
+const PopStateEvent = 'popstate';
+const HashChangeEvent = 'hashchange';
 
 function getHistoryState() {
     try {
@@ -35,8 +35,8 @@ function getHistoryState() {
  * pushState, replaceState, and the popstate event.
  */
 function createBrowserHistory(props = {}) {
-    console.log("props===>", props);
-    invariant(canUseDOM, "Browser history needs a DOM");
+    console.log('props===>', props);
+    invariant(canUseDOM, 'Browser history needs a DOM');
 
     const globalHistory = window.history;
     const canUseHistory = supportsHistory();
@@ -49,7 +49,7 @@ function createBrowserHistory(props = {}) {
     } = props;
     const basename = props.basename
         ? stripTrailingSlash(addLeadingSlash(props.basename))
-        : "";
+        : '';
 
     function getDOMLocation(historyState) {
         const { key, state } = historyState || {};
@@ -59,13 +59,16 @@ function createBrowserHistory(props = {}) {
 
         warning(
             !basename || hasBasename(path, basename),
-            "You are attempting to use a basename on a page whose URL path does not begin " +
+            'You are attempting to use a basename on a page whose URL path does not begin ' +
                 'with the basename. Expected path "' +
                 path +
                 '" to begin with "' +
                 basename +
                 '".'
         );
+
+        // console.log('path===>location', path);
+        // console.log('path===>location', basename);
 
         if (basename) path = stripBasename(path, basename);
 
@@ -103,7 +106,7 @@ function createBrowserHistory(props = {}) {
             forceNextPop = false;
             setState();
         } else {
-            const action = "POP";
+            const action = 'POP';
 
             transitionManager.confirmTransitionTo(
                 location,
@@ -155,15 +158,15 @@ function createBrowserHistory(props = {}) {
     function push(path, state) {
         warning(
             !(
-                typeof path === "object" &&
+                typeof path === 'object' &&
                 path.state !== undefined &&
                 state !== undefined
             ),
-            "You should avoid providing a 2nd state argument to push when the 1st " +
-                "argument is a location-like object that already has state; it is ignored"
+            'You should avoid providing a 2nd state argument to push when the 1st ' +
+                'argument is a location-like object that already has state; it is ignored'
         );
 
-        const action = "PUSH";
+        const action = 'PUSH';
         const location = createLocation(
             path,
             state,
@@ -198,7 +201,7 @@ function createBrowserHistory(props = {}) {
                 } else {
                     warning(
                         state === undefined,
-                        "Browser history cannot push state in browsers that do not support HTML5 history"
+                        'Browser history cannot push state in browsers that do not support HTML5 history'
                     );
 
                     window.location.href = href;
@@ -210,15 +213,15 @@ function createBrowserHistory(props = {}) {
     function replace(path, state) {
         warning(
             !(
-                typeof path === "object" &&
+                typeof path === 'object' &&
                 path.state !== undefined &&
                 state !== undefined
             ),
-            "You should avoid providing a 2nd state argument to replace when the 1st " +
-                "argument is a location-like object that already has state; it is ignored"
+            'You should avoid providing a 2nd state argument to replace when the 1st ' +
+                'argument is a location-like object that already has state; it is ignored'
         );
 
-        const action = "REPLACE";
+        const action = 'REPLACE';
         const location = createLocation(
             path,
             state,
@@ -251,7 +254,7 @@ function createBrowserHistory(props = {}) {
                 } else {
                     warning(
                         state === undefined,
-                        "Browser history cannot replace state in browsers that do not support HTML5 history"
+                        'Browser history cannot replace state in browsers that do not support HTML5 history'
                     );
 
                     window.location.replace(href);
@@ -322,7 +325,7 @@ function createBrowserHistory(props = {}) {
 
     const history = {
         length: globalHistory.length,
-        action: "POP",
+        action: 'POP',
         location: initialLocation,
         createHref,
         push,

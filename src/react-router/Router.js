@@ -1,15 +1,15 @@
-import React from "react";
-import PropTypes from "prop-types";
-import warning from "tiny-warning";
+import React from 'react';
+import PropTypes from 'prop-types';
+import warning from 'tiny-warning';
 
-import RouterContext from "./RouterContext.js";
+import RouterContext from './RouterContext.js';
 
 /**
  * The public API for putting history on context.
  */
 class Router extends React.Component {
     static computeRootMatch(pathname) {
-        return { path: "/", url: "/", params: {}, isExact: pathname === "/" };
+        return { path: '/', url: '/', params: {}, isExact: pathname === '/' };
     }
 
     constructor(props) {
@@ -45,7 +45,7 @@ class Router extends React.Component {
             this.setState({ location: this._pendingLocation });
         }
 
-        // console.log("===> this.props", this.props);
+        console.log('===> this.props===>router', this.props);
     }
 
     componentWillUnmount() {

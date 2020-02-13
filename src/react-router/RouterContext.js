@@ -2,6 +2,7 @@
 import createContext from "mini-create-react-context";
 
 const createNamedContext = name => {
+    console.log("createContext===>", createContext)
     const context = createContext();
     context.displayName = name;
     // console.log("=====> name", name);
