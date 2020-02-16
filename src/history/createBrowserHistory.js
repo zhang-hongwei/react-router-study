@@ -311,7 +311,8 @@ function createBrowserHistory(props = {}) {
     }
 
     function listen(listener) {
-        const unlisten = transitionManager.appendListener(listener);
+        // 接触监听
+        const unlisten = transitionManager.appendListener(listener); 
         checkDOMListeners(1);
 
         return () => {

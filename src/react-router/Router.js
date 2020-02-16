@@ -28,13 +28,16 @@ class Router extends React.Component {
         this._pendingLocation = null;
 
         if (!props.staticContext) {
+            // console.log("route==============>>>!props===>",!props.staticContext)
             this.unlisten = props.history.listen(location => {
+                console.log("route====>location,==>", location);
                 if (this._isMounted) {
                     this.setState({ location });
                 } else {
                     this._pendingLocation = location;
                 }
             });
+            // console.log("route==============>>>!props===>",this.unlisten)
         }
     }
 
@@ -45,7 +48,7 @@ class Router extends React.Component {
             this.setState({ location: this._pendingLocation });
         }
 
-        // console.log("===> this.props", this.props);
+        console.log("===> this.psssrops", this.props);
     }
 
     componentWillUnmount() {
@@ -53,6 +56,7 @@ class Router extends React.Component {
     }
 
     render() {
+        console.log("route===.ll", this.props.staticContext);
         return (
             <RouterContext.Provider
                 children={this.props.children || null}
