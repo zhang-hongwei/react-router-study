@@ -29,14 +29,14 @@ let cc = compilePath("/abc", {
 });
 
 const match1 = cc.regexp.exec("/abc");
-console.log("/abc==>", cc);
-console.log("/abc==>", match1);
+// console.log("/abc==>", cc);
+// console.log("/abc==>", match1);
 
 /**
  * Public API for matching a URL pathname to a path.
  */
 function matchPath(pathname, options = {}) {
-    console.log("pathname====>", pathname, options);
+    // console.log("pathname====>", pathname, options);
     // console.log("pathnameoptions====>", options);
 
     if (typeof options === "string" || Array.isArray(options)) {
@@ -47,10 +47,10 @@ function matchPath(pathname, options = {}) {
 
     const paths = [].concat(path);
 
-    console.log("=====>>>>paths", paths);
+    // console.log("=====>>>>paths", paths);
 
     const resultAry = paths.reduce((matched, path) => {
-        console.log("reduce==>", matched, path);
+        // console.log("reduce==>", matched, path);
 
         if (!path && path !== "") return null;
         if (matched) return matched;

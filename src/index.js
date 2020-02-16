@@ -21,7 +21,7 @@ const history = createBrowserHistory();
 
 // const history = createBrowserHistory();
 
-console.log("===>history", history);
+// console.log("===>history", history);
 // window.onpopstate = function(event) {
 //     console.log(event);
 // };

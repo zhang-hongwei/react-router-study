@@ -50,10 +50,10 @@ function createTransitionManager() {
 
     let listeners = [];
 
-    console.log("=====>>>>listeners===>", listeners[0]);
-
     function appendListener(fn) {
         let isActive = true;
+
+        // console.log("listeners===>", listeners);
 
         function listener(...args) {
             if (isActive) fn(...args);

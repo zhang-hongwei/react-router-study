@@ -114,9 +114,9 @@ const Link = forwardRef(
                             method(location);
                         }
                     };
-                    console.log("===Link==>method", replace);
-                    console.log("===Link==>history", history);
-                    console.log("===Link==>location", props);
+                    // console.log("===Link==>method", replace);
+                    // console.log("===Link==>history", history);
+                    // console.log("===Link==>location", props);
 
                     // React 15 compat
                     if (forwardRefShim !== forwardRef) {

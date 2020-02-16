@@ -29,7 +29,7 @@ function evalChildrenDev(children, props, path) {
  */
 class Route extends React.Component {
     componentDidMount() {
-        console.log("route===>1", this.props);
+        // console.log("route===>1", this.props);
     }
 
     render() {
@@ -42,7 +42,7 @@ class Route extends React.Component {
                         "You should not use <Route> outside a <Router>"
                     );
 
-                    console.log("route===>context", context);
+                    console.log("route===>context===>context改变===>", context);
 
                     const location = this.props.location || context.location;
                     const match = this.props.computedMatch
@@ -51,16 +51,16 @@ class Route extends React.Component {
                         ? matchPath(location.pathname, this.props)
                         : context.match;
 
-                    console.log(
-                        "matchPath==>",
-                        matchPath(location.pathname, this.props)
-                    );
+                    // console.log(
+                    //     "matchPath==>",
+                    //     matchPath(location.pathname, this.props)
+                    // );
 
-                    console.log("matchPath==>match", match);
+                    // console.log("matchPath==>match", match);
 
                     const props = { ...context, location, match };
 
-                    console.log("route===>props", props);
+                    // console.log("route===>props", props);
 
                     let { children, component, render } = this.props;
 
@@ -70,9 +70,9 @@ class Route extends React.Component {
                         children = null;
                     }
 
-                    console.log("props.match==>", props.match);
-                    console.log("props.match==>children", children);
-                    console.log("props.match==>component", component);
+                    // console.log("props.match==>", props.match);
+                    // console.log("props.match==>children", children);
+                    // console.log("props.match==>component", component);
                     // console.log("props.children==>", component);
 
                     return (
