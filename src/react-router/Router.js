@@ -54,11 +54,7 @@ class Router extends React.Component {
             this.setState({ location: this._pendingLocation });
         }
 
-<<<<<<< HEAD
-        console.log('===> this.props===>router', this.props);
-=======
         // console.log("===> this.psssrops", this.props);
->>>>>>> 9839febd3aba17a2745eadc13e04fdb311ba7572
     }
 
     componentWillUnmount() {

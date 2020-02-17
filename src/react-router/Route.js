@@ -42,7 +42,7 @@ class Route extends React.Component {
                         "You should not use <Route> outside a <Router>"
                     );
 
-                    console.log("route===>context===>context改变===>", context);
+                    // console.log("route===>context===>context改变===>", context);
 
                     const location = this.props.location || context.location;
                     const match = this.props.computedMatch
@@ -55,11 +55,8 @@ class Route extends React.Component {
                     //     "matchPath==>",
                     //     matchPath(location.pathname, this.props)
                     // );
-<<<<<<< HEAD
-=======
 
                     // console.log("matchPath==>match", match);
->>>>>>> 9839febd3aba17a2745eadc13e04fdb311ba7572
 
                     const props = { ...context, location, match };
 
@@ -74,11 +71,8 @@ class Route extends React.Component {
                     }
 
                     // console.log("props.match==>", props.match);
-<<<<<<< HEAD
-=======
                     // console.log("props.match==>children", children);
                     // console.log("props.match==>component", component);
->>>>>>> 9839febd3aba17a2745eadc13e04fdb311ba7572
                     // console.log("props.children==>", component);
 
                     return (

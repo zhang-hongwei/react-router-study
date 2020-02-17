@@ -23,6 +23,14 @@ const routeList = [
         _title_default: 'B 页面 default',
         exact: true,
         key: '2'
+    },
+    {
+        path: '/c',
+        component: require('./pages/c').default,
+        _title: 'c 页面',
+        _title_default: 'c 页面 default',
+        exact: true,
+        key: '3'
     }
 ];
 

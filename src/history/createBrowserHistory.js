@@ -314,7 +314,7 @@ function createBrowserHistory(props = {}) {
     }
 
     function listen(listener) {
-        console.log("====>>>>监听history===>                  |", listener);
+        // console.log("====>>>>监听history===>                  |", listener);
         const unlisten = transitionManager.appendListener(listener);
         checkDOMListeners(1);
 
