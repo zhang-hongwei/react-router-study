@@ -1,5 +1,7 @@
 import React from "react";
-import { __RouterContext as RouterContext } from "react-router";
+// import { __RouterContext as RouterContext } from "./react-router";
+
+import RouterContext from "./RouterContext.js";
 import PropTypes from "prop-types";
 import invariant from "tiny-invariant";
 import {
@@ -29,6 +31,9 @@ const LinkAnchor = forwardRef(
         forwardedRef
     ) => {
         const { target } = rest;
+        // console.log("===>target", navigate);
+        // console.log("===>rest", rest);
+        // console.log("===>onClick", onClick);
 
         let props = {
             ...rest,
@@ -63,10 +68,6 @@ const LinkAnchor = forwardRef(
         return <a {...props} />;
     }
 );
-
-if (__DEV__) {
-    LinkAnchor.displayName = "LinkAnchor";
-}
 
 /**
  * The public API for rendering a history-aware <a>.
@@ -113,6 +114,9 @@ const Link = forwardRef(
                             method(location);
                         }
                     };
+                    // console.log("===Link==>method", replace);
+                    // console.log("===Link==>history", history);
+                    // console.log("===Link==>location", props);
 
                     // React 15 compat
                     if (forwardRefShim !== forwardRef) {
@@ -127,28 +131,5 @@ const Link = forwardRef(
         );
     }
 );
-
-// if (__DEV__) {
-//     const toType = PropTypes.oneOfType([
-//         PropTypes.string,
-//         PropTypes.object,
-//         PropTypes.func
-//     ]);
-//     const refType = PropTypes.oneOfType([
-//         PropTypes.string,
-//         PropTypes.func,
-//         PropTypes.shape({ current: PropTypes.any })
-//     ]);
-
-//     Link.displayName = "Link";
-
-//     Link.propTypes = {
-//         innerRef: refType,
-//         onClick: PropTypes.func,
-//         replace: PropTypes.bool,
-//         target: PropTypes.string,
-//         to: toType.isRequired
-//     };
-// }
 
 export default Link;

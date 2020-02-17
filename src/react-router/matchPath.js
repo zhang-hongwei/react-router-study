@@ -5,63 +5,82 @@ const cacheLimit = 10000;
 let cacheCount = 0;
 
 function compilePath(path, options) {
-  const cacheKey = `${options.end}${options.strict}${options.sensitive}`;
-  const pathCache = cache[cacheKey] || (cache[cacheKey] = {});
+    const cacheKey = `${options.end}${options.strict}${options.sensitive}`;
+    const pathCache = cache[cacheKey] || (cache[cacheKey] = {});
 
-  if (pathCache[path]) return pathCache[path];
+    if (pathCache[path]) return pathCache[path];
 
-  const keys = [];
-  const regexp = pathToRegexp(path, keys, options);
-  const result = { regexp, keys };
+    const keys = [];
+    const regexp = pathToRegexp(path, keys, options);
+    const result = { regexp, keys };
 
-  if (cacheCount < cacheLimit) {
-    pathCache[path] = result;
-    cacheCount++;
-  }
+    if (cacheCount < cacheLimit) {
+        pathCache[path] = result;
+        cacheCount++;
+    }
 
-  return result;
+    return result;
 }
+
+let cc = compilePath("/abc", {
+    end: false,
+    strict: false,
+    sensitive: false
+});
+
+const match1 = cc.regexp.exec("/abc");
+// console.log("/abc==>", cc);
+// console.log("/abc==>", match1);
 
 /**
  * Public API for matching a URL pathname to a path.
  */
 function matchPath(pathname, options = {}) {
-  if (typeof options === "string" || Array.isArray(options)) {
-    options = { path: options };
-  }
+    // console.log("pathname====>", pathname, options);
+    // console.log("pathnameoptions====>", options);
 
-  const { path, exact = false, strict = false, sensitive = false } = options;
+    if (typeof options === "string" || Array.isArray(options)) {
+        options = { path: options };
+    }
 
-  const paths = [].concat(path);
+    const { path, exact = false, strict = false, sensitive = false } = options;
 
-  return paths.reduce((matched, path) => {
-    if (!path && path !== "") return null;
-    if (matched) return matched;
+    const paths = [].concat(path);
 
-    const { regexp, keys } = compilePath(path, {
-      end: exact,
-      strict,
-      sensitive
-    });
-    const match = regexp.exec(pathname);
+    // console.log("=====>>>>paths", paths);
 
-    if (!match) return null;
+    const resultAry = paths.reduce((matched, path) => {
+        // console.log("reduce==>", matched, path);
 
-    const [url, ...values] = match;
-    const isExact = pathname === url;
+        if (!path && path !== "") return null;
+        if (matched) return matched;
 
-    if (exact && !isExact) return null;
+        const { regexp, keys } = compilePath(path, {
+            end: exact,
+            strict,
+            sensitive
+        });
+        const match = regexp.exec(pathname);
 
-    return {
-      path, // the path used to match
-      url: path === "/" && url === "" ? "/" : url, // the matched portion of the URL
-      isExact, // whether or not we matched exactly
-      params: keys.reduce((memo, key, index) => {
-        memo[key.name] = values[index];
-        return memo;
-      }, {})
-    };
-  }, null);
+        if (!match) return null;
+
+        const [url, ...values] = match;
+        const isExact = pathname === url;
+
+        if (exact && !isExact) return null;
+
+        return {
+            path, // the path used to match
+            url: path === "/" && url === "" ? "/" : url, // the matched portion of the URL
+            isExact, // whether or not we matched exactly
+            params: keys.reduce((memo, key, index) => {
+                memo[key.name] = values[index];
+                return memo;
+            }, {})
+        };
+    }, null);
+
+    return resultAry;
 }
 
 export default matchPath;

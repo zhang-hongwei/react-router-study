@@ -29,7 +29,7 @@ function evalChildrenDev(children, props, path) {
  */
 class Route extends React.Component {
     componentDidMount() {
-        console.log("route===>", this.props);
+        // console.log("route===>1", this.props);
     }
 
     render() {
@@ -42,7 +42,7 @@ class Route extends React.Component {
                         "You should not use <Route> outside a <Router>"
                     );
 
-                    console.log("===>context", context);
+                    console.log("route===>context===>context改变===>", context);
 
                     const location = this.props.location || context.location;
                     const match = this.props.computedMatch
@@ -55,8 +55,15 @@ class Route extends React.Component {
                     //     "matchPath==>",
                     //     matchPath(location.pathname, this.props)
                     // );
+<<<<<<< HEAD
+=======
+
+                    // console.log("matchPath==>match", match);
+>>>>>>> 9839febd3aba17a2745eadc13e04fdb311ba7572
 
                     const props = { ...context, location, match };
+
+                    // console.log("route===>props", props);
 
                     let { children, component, render } = this.props;
 
@@ -67,6 +74,11 @@ class Route extends React.Component {
                     }
 
                     // console.log("props.match==>", props.match);
+<<<<<<< HEAD
+=======
+                    // console.log("props.match==>children", children);
+                    // console.log("props.match==>component", component);
+>>>>>>> 9839febd3aba17a2745eadc13e04fdb311ba7572
                     // console.log("props.children==>", component);
 
                     return (
@@ -103,64 +115,5 @@ class Route extends React.Component {
         );
     }
 }
-
-// if (__DEV__) {
-//     Route.propTypes = {
-//         children: PropTypes.oneOfType([PropTypes.func, PropTypes.node]),
-//         component: (props, propName) => {
-//             if (props[propName] && !isValidElementType(props[propName])) {
-//                 return new Error(
-//                     `Invalid prop 'component' supplied to 'Route': the prop is not a valid React component`
-//                 );
-//             }
-//         },
-//         exact: PropTypes.bool,
-//         location: PropTypes.object,
-//         path: PropTypes.oneOfType([
-//             PropTypes.string,
-//             PropTypes.arrayOf(PropTypes.string)
-//         ]),
-//         render: PropTypes.func,
-//         sensitive: PropTypes.bool,
-//         strict: PropTypes.bool
-//     };
-
-//     Route.prototype.componentDidMount = function() {
-//         warning(
-//             !(
-//                 this.props.children &&
-//                 !isEmptyChildren(this.props.children) &&
-//                 this.props.component
-//             ),
-//             "You should not use <Route component> and <Route children> in the same route; <Route component> will be ignored"
-//         );
-
-//         warning(
-//             !(
-//                 this.props.children &&
-//                 !isEmptyChildren(this.props.children) &&
-//                 this.props.render
-//             ),
-//             "You should not use <Route render> and <Route children> in the same route; <Route render> will be ignored"
-//         );
-
-//         warning(
-//             !(this.props.component && this.props.render),
-//             "You should not use <Route component> and <Route render> in the same route; <Route render> will be ignored"
-//         );
-//     };
-
-//     Route.prototype.componentDidUpdate = function(prevProps) {
-//         warning(
-//             !(this.props.location && !prevProps.location),
-//             '<Route> elements should not change from uncontrolled to controlled (or vice versa). You initially used no "location" prop and then provided one on a subsequent render.'
-//         );
-
-//         warning(
-//             !(!this.props.location && prevProps.location),
-//             '<Route> elements should not change from controlled to uncontrolled (or vice versa). You provided a "location" prop initially but omitted it on a subsequent render.'
-//         );
-//     };
-// }
 
 export default Route;
