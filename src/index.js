@@ -1,37 +1,46 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
+import ReactDOM from "react-dom";
 // import { Router, Route, Switch, Link } from 'react-router-dom';
-import { Router, Route } from './react-router';
-import './index.css';
-import App from './App';
-import A from './pages/a';
-import B from './pages/b';
-import C from './pages/c';
-import * as serviceWorker from './serviceWorker';
-import RouterWrap from './router';
-import { createBrowserHistory, createHashHistory } from './history';
-import Link from './react-router/Link';
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-// import store from "./store"
+import { Router, Route } from "./react-router";
+import "./index.css";
+import App from "./App";
+import A from "./pages/a";
+import B from "./pages/b";
+import C from "./pages/c";
+import * as serviceWorker from "./serviceWorker";
+import RouterWrap from "./router";
+import { createBrowserHistory, createHashHistory } from "./history";
+import Link from "./react-router/Link";
+import { Provider } from "react-redux";
+import { createStore, applyMiddleware } from "redux";
+import rootReducers from "./store/reducers";
+import logger from "redux-logger";
+import thunk from "redux-thunk";
+import createSagaMiddleware from "redux-saga";
+import mySaga from "./store/saga/saga";
 
-const reducers = function(state = { num: 1 }, action) {
-    return {
-        ...state,
-        text: '新state'
-    };
-};
+console.log("");
 
-const history = createBrowserHistory();
+// import { helloSaga } from "./store/saga/saga";
 
-const store = createStore(reducers);
+// const sagaMiddleware = createSagaMiddleware();
 
-ReactDOM.render(
-    <Provider store={store}>
-        <App></App>
-    </Provider>,
-    document.getElementById('root')
-);
+// const history = createBrowserHistory();
+// const logger = createLogger()
+// const store = createStore(rootReducers, applyMiddleware(logger));
+
+// window.store = store.getState();
+
+// ReactDOM.render(
+//     <Provider store={store}>
+//         <App></App>
+//     </Provider>,
+//     document.getElementById("root")
+// );
+
+ReactDOM.render(<App></App>, document.getElementById("root"));
+
+// sagaMiddleware.run(mySaga);
 
 // ReactDOM.render(
 //     <Router history={history}>

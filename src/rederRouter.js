@@ -128,7 +128,7 @@ function wrapWithInitialProps(WrappedComponent, initialProps) {
 
 export default function renderRoutes(routes, extraProps = {}, switchProps = {}) {
 //   const plugins = require('umi/_runtimePlugin');
-  console.log('===>routes==>?', routes);
+//   console.log('===>routes==>?', routes);
   return routes ? (
     <Switch {...switchProps}>
       {routes.map((route, i) => {

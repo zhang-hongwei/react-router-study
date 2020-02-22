@@ -1,17 +1,28 @@
-/*
- * action 类型
- */
+import axios from "axios";
 
-export const ADD_NUM = 'ADD_NUM';
+// export function getList(text) {
+//     return axios.get("/api/getlist").then(res => {
+//         console.log(res);
+//     });
+//     return { type: ADD_NUM, text };
+// }
 
-/*
- * 其它的常量
- */
+export function add(payload) {
+    // return {
+    //     type: "ADD_C_NUM",
+    //     payload: payload
+    // };
 
-/*
- * action 创建函数
- */
+    return dispatch => {
+        console.log("========>>>", dispatch);
 
-export function addNum(text) {
-    return { type: ADD_NUM, text };
+        return axios.get("/api/getlist").then(res => {
+            const { data } = res;
+            console.log("ccccccccccccccccc====>", res);
+            dispatch({
+                type: "ADD_C_NUM",
+                payload: data.data
+            });
+        });
+    };
 }
