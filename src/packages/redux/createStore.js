@@ -1,39 +1,39 @@
-import $$observable from "./utils/symbol-observable";
-import ActionTypes from "./utils/actionTypes";
-import isPlainObject from "./utils/isPlainObject";
+import $$observable from './utils/symbol-observable';
+import ActionTypes from './utils/actionTypes';
+import isPlainObject from './utils/isPlainObject';
 
 export default function createStore(reducer, preloadedState, enhancer) {
     // 1, 首先判断预置的preloadedState是否存在，如果该位置是一个函数，还需要再判断enhancer
     if (
-        (typeof preloadedState === "function" &&
-            typeof enhancer === "function") ||
-        (typeof enhancer === "function" && typeof arguments[3] === "function")
+        (typeof preloadedState === 'function' &&
+            typeof enhancer === 'function') ||
+        (typeof enhancer === 'function' && typeof arguments[3] === 'function')
     ) {
         throw new Error(
-            "It looks like you are passing several store enhancers to " +
-                "createStore(). This is not supported. Instead, compose them " +
-                "together to a single function."
+            'It looks like you are passing several store enhancers to ' +
+                'createStore(). This is not supported. Instead, compose them ' +
+                'together to a single function.'
         );
     }
 
     if (
-        typeof preloadedState === "function" &&
-        typeof enhancer === "undefined"
+        typeof preloadedState === 'function' &&
+        typeof enhancer === 'undefined'
     ) {
         enhancer = preloadedState;
         preloadedState = undefined;
     }
 
-    if (typeof enhancer !== "undefined") {
-        if (typeof enhancer !== "function") {
-            throw new Error("Expected the enhancer to be a function.");
+    if (typeof enhancer !== 'undefined') {
+        if (typeof enhancer !== 'function') {
+            throw new Error('Expected the enhancer to be a function.');
         }
 
         return enhancer(createStore)(reducer, preloadedState);
     }
 
-    if (typeof reducer !== "function") {
-        throw new Error("Expected the reducer to be a function.");
+    if (typeof reducer !== 'function') {
+        throw new Error('Expected the reducer to be a function.');
     }
 
     let currentReducer = reducer;
@@ -63,9 +63,9 @@ export default function createStore(reducer, preloadedState, enhancer) {
     function getState() {
         if (isDispatching) {
             throw new Error(
-                "You may not call store.getState() while the reducer is executing. " +
-                    "The reducer has already received the state as an argument. " +
-                    "Pass it down from the top reducer instead of reading it from the store."
+                'You may not call store.getState() while the reducer is executing. ' +
+                    'The reducer has already received the state as an argument. ' +
+                    'Pass it down from the top reducer instead of reading it from the store.'
             );
         }
 
@@ -96,16 +96,16 @@ export default function createStore(reducer, preloadedState, enhancer) {
      * @returns A function to remove this change listener.
      */
     function subscribe(listener) {
-        if (typeof listener !== "function") {
-            throw new Error("Expected the listener to be a function.");
+        if (typeof listener !== 'function') {
+            throw new Error('Expected the listener to be a function.');
         }
 
         if (isDispatching) {
             throw new Error(
-                "You may not call store.subscribe() while the reducer is executing. " +
-                    "If you would like to be notified after the store has been updated, subscribe from a " +
-                    "component and invoke store.getState() in the callback to access the latest state. " +
-                    "See https://redux.js.org/api-reference/store#subscribelistener for more details."
+                'You may not call store.subscribe() while the reducer is executing. ' +
+                    'If you would like to be notified after the store has been updated, subscribe from a ' +
+                    'component and invoke store.getState() in the callback to access the latest state. ' +
+                    'See https://redux.js.org/api-reference/store#subscribelistener for more details.'
             );
         }
 
@@ -121,8 +121,8 @@ export default function createStore(reducer, preloadedState, enhancer) {
 
             if (isDispatching) {
                 throw new Error(
-                    "You may not unsubscribe from a store listener while the reducer is executing. " +
-                        "See https://redux.js.org/api-reference/store#subscribelistener for more details."
+                    'You may not unsubscribe from a store listener while the reducer is executing. ' +
+                        'See https://redux.js.org/api-reference/store#subscribelistener for more details.'
                 );
             }
 
@@ -161,22 +161,23 @@ export default function createStore(reducer, preloadedState, enhancer) {
      * return something else (for example, a Promise you can await).
      */
     function dispatch(action) {
+        // console.log('===原生==>1');
         if (!isPlainObject(action)) {
             throw new Error(
-                "Actions must be plain objects. " +
-                    "Use custom middleware for async actions."
+                'Actions must be plain objects. ' +
+                    'Use custom middleware for async actions.'
             );
         }
 
-        if (typeof action.type === "undefined") {
+        if (typeof action.type === 'undefined') {
             throw new Error(
                 'Actions may not have an undefined "type" property. ' +
-                    "Have you misspelled a constant?"
+                    'Have you misspelled a constant?'
             );
         }
 
         if (isDispatching) {
-            throw new Error("Reducers may not dispatch actions.");
+            throw new Error('Reducers may not dispatch actions.');
         }
 
         try {
@@ -209,8 +210,8 @@ export default function createStore(reducer, preloadedState, enhancer) {
      * @returns The same store instance with a new reducer in place.
      */
     function replaceReducer(nextReducer) {
-        if (typeof nextReducer !== "function") {
-            throw new Error("Expected the nextReducer to be a function.");
+        if (typeof nextReducer !== 'function') {
+            throw new Error('Expected the nextReducer to be a function.');
         }
 
         // TODO: do this more elegantly
@@ -247,9 +248,9 @@ export default function createStore(reducer, preloadedState, enhancer) {
              * emission of values from the observable.
              */
             subscribe(observer) {
-                if (typeof observer !== "object" || observer === null) {
+                if (typeof observer !== 'object' || observer === null) {
                     throw new TypeError(
-                        "Expected the observer to be an object."
+                        'Expected the observer to be an object.'
                     );
                 }
 

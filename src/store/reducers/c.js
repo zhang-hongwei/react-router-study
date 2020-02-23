@@ -1,24 +1,24 @@
-import axios from "axios";
-const c = function(state = { c: "aaa" }, action) {
-    // console.log("dispatch=c==>", action);
+import axios from 'axios';
+const c = function(state = { c: 'aaa' }, action) {
+    // console.log('dispatch=c==>', action);
     switch (action.type) {
-        case "ADD_C_NUM":
+        case 'ADD_C_NUM':
             return {
                 ...state,
-                text: "测试c",
-                data: action.payload
+                text: '测试c',
+                ...action.payload
             };
-        case "USER_FETCH_REQUESTED":
+        case 'USER_FETCH_REQUESTED':
             return {
                 ...state,
                 ...action.payload
             };
-        case "USER_FETCH_SUCCEEDED":
+        case 'USER_FETCH_SUCCEEDED':
             return {
                 ...state,
                 ...action.payload
             };
-        case "GET_USER_INFO_SUCCESSED":
+        case 'GET_USER_INFO_SUCCESSED':
             return {
                 ...state,
                 ...action.payload
@@ -26,7 +26,7 @@ const c = function(state = { c: "aaa" }, action) {
         default:
             return {
                 ...state,
-                text: "测试c"
+                text: '测试c'
             };
     }
 };

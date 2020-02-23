@@ -1,30 +1,35 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 // import
-import MyContext from "../context/mycontext";
-import store from "../../store/index";
+import MyContext from '../context/mycontext';
+// import store from '../../store/index';
+import { connect } from '../../packages/react-redux';
 
-const B = () => {
+const B = ({ dispatch, num = 0 }) => {
     const handleClick = () => {
-        store.dispatch({
-            type: "ADD_B_NUM",
-            payload: "测试=======================》》》b"
+        console.log('1========+>', 1);
+        dispatch({
+            type: 'ADD_B_NUM',
+            payload: {
+                num: Math.random()
+            }
         });
     };
     return (
-        <MyContext.Consumer className="123">
-            {value => {
-                // console.log('====>value', value);
-                return (
-                    <div>
-                        '测试B页面' {value.val}
-                        <div>
-                            <button onClick={handleClick}>click</button>
-                        </div>
-                    </div>
-                );
-            }}
-        </MyContext.Consumer>
+        <div>
+            <div>B 页面</div>
+
+            <div style={{ height: '30px' }}></div>
+
+            <button onClick={handleClick}>click1</button>
+
+            <div>{num}</div>
+        </div>
     );
 };
 
-export default B;
+// export default B;
+
+export default connect(state => {
+    console.log('=======state===1>', state);
+    return state.b;
+})(B);

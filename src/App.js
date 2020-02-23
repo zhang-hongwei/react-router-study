@@ -30,14 +30,14 @@ function App() {
 
     let [val, setval] = useState(0);
     return (
-        <MyContext.Provider value={{ val: val }}>
+        <div>
             <div>123</div>
             <button onClick={handleClick}>pushState</button>
             <br />
             <button onClick={handleClick1}>replaceState</button>
             <br />
             <RouterWrap></RouterWrap>
-        </MyContext.Provider>
+        </div>
     );
 }
 

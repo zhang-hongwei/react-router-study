@@ -1,25 +1,24 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import React from 'react';
+import ReactDOM from 'react-dom';
 // import { Router, Route, Switch, Link } from 'react-router-dom';
-import { Router, Route } from "./react-router";
-import "./index.css";
-import App from "./App";
-import A from "./pages/a";
-import B from "./pages/b";
-import C from "./pages/c";
-import * as serviceWorker from "./serviceWorker";
-import RouterWrap from "./router";
-import { createBrowserHistory, createHashHistory } from "./history";
-import Link from "./react-router/Link";
-import { Provider } from "react-redux";
-import { createStore, applyMiddleware } from "redux";
-import rootReducers from "./store/reducers";
-import logger from "redux-logger";
-import thunk from "redux-thunk";
-import createSagaMiddleware from "redux-saga";
-import mySaga from "./store/saga/saga";
-
-console.log("");
+import { Router, Route } from './react-router';
+import './index.css';
+import App from './App';
+import A from './pages/a';
+import B from './pages/b';
+import C from './pages/c';
+import * as serviceWorker from './serviceWorker';
+import RouterWrap from './router';
+import { createBrowserHistory, createHashHistory } from './history';
+import Link from './react-router/Link';
+import { Provider } from './packages/react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import rootReducers from './store/reducers';
+import logger from 'redux-logger';
+import thunk from 'redux-thunk';
+import createSagaMiddleware from 'redux-saga';
+import mySaga from './store/saga/saga';
+import store from './store/index';
 
 // import { helloSaga } from "./store/saga/saga";
 
@@ -31,14 +30,14 @@ console.log("");
 
 // window.store = store.getState();
 
-// ReactDOM.render(
-//     <Provider store={store}>
-//         <App></App>
-//     </Provider>,
-//     document.getElementById("root")
-// );
+ReactDOM.render(
+    <Provider store={store}>
+        <App></App>
+    </Provider>,
+    document.getElementById('root')
+);
 
-ReactDOM.render(<App></App>, document.getElementById("root"));
+// ReactDOM.render(<App></App>, document.getElementById("root"));
 
 // sagaMiddleware.run(mySaga);
 

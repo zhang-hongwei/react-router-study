@@ -7,12 +7,13 @@
     </head>
     <body>
         <script>
-            let ary = ["a", "b"];
+            let ary = ["a", "b", "c"];
 
             let c = ary.reduce((accumulator, currentValu, index) => {
                 console.log(accumulator, currentValu, index);
                 return String(accumulator) + currentValu;
-            }, null);
+            });
+            console.log(c)
         </script>
     </body>
 </html>
