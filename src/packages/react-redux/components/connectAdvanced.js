@@ -1,11 +1,11 @@
-import hoistStatics from 'hoist-non-react-statics';
-import invariant from 'invariant';
-import React, { useContext, useMemo, useRef, useReducer } from 'react';
-import { isValidElementType, isContextConsumer } from 'react-is';
-import Subscription from '../utils/Subscription';
-import { useIsomorphicLayoutEffect } from '../utils/useIsomorphicLayoutEffect';
+import hoistStatics from "hoist-non-react-statics";
+import invariant from "invariant";
+import React, { useContext, useMemo, useRef, useReducer } from "react";
+import { isValidElementType, isContextConsumer } from "react-is";
+import Subscription from "../utils/Subscription";
+import { useIsomorphicLayoutEffect } from "../utils/useIsomorphicLayoutEffect";
 
-import { ReactReduxContext } from './Context';
+import { ReactReduxContext } from "./Context";
 
 // Define some constant arrays just to avoid re-creating these
 const EMPTY_ARRAY = [];
@@ -53,7 +53,7 @@ export default function connectAdvanced(
 
         // shown in error messages
         // probably overridden by wrapper functions such as connect()
-        methodName = 'connectAdvanced',
+        methodName = "connectAdvanced",
 
         // REMOVED: if defined, the name of the property passed to the wrapped element indicating the number of
         // calls to render. useful for watching in react devtools for unnecessary re-renders.
@@ -63,7 +63,7 @@ export default function connectAdvanced(
         shouldHandleStateChanges = true,
 
         // REMOVED: the key of props/context to get the store
-        storeKey = 'store',
+        storeKey = "store",
 
         // REMOVED: expose the wrapped component via refs
         withRef = false,
@@ -85,18 +85,18 @@ export default function connectAdvanced(
 
     invariant(
         !withRef,
-        'withRef is removed. To access the wrapped instance, use a ref on the connected component'
+        "withRef is removed. To access the wrapped instance, use a ref on the connected component"
     );
 
     const customStoreWarningMessage =
-        'To use a custom Redux store for specific components, create a custom React context with ' +
+        "To use a custom Redux store for specific components, create a custom React context with " +
         "React.createContext(), and pass the context object to React Redux's Provider and specific components" +
-        ' like: <Provider context={MyContext}><ConnectedComponent context={MyContext} /></Provider>. ' +
-        'You may also pass a {context : MyContext} option to connect';
+        " like: <Provider context={MyContext}><ConnectedComponent context={MyContext} /></Provider>. " +
+        "You may also pass a {context : MyContext} option to connect";
 
     invariant(
-        storeKey === 'store',
-        'storeKey has been removed and does not do anything. ' +
+        storeKey === "store",
+        "storeKey has been removed and does not do anything. " +
             customStoreWarningMessage
     );
 
@@ -104,7 +104,7 @@ export default function connectAdvanced(
 
     return function wrapWithConnect(WrappedComponent) {
         // console.log('=====被包裹的组件===>', WrappedComponent);
-        if (process.env.NODE_ENV !== 'production') {
+        if (process.env.NODE_ENV !== "production") {
             invariant(
                 isValidElementType(WrappedComponent),
                 `You must pass a component to the function returned by ` +
@@ -117,12 +117,12 @@ export default function connectAdvanced(
         const wrappedComponentName =
             WrappedComponent.displayName ||
             WrappedComponent.name ||
-            'Component';
+            "Component";
 
-        console.log('===组件名称===>', wrappedComponentName);
+        // console.log('===组件名称===>', wrappedComponentName);
 
         const displayName = getDisplayName(wrappedComponentName);
-        console.log('===displayName组件名称===>', displayName);
+        // console.log('===displayName组件名称===>', displayName);
         const selectorFactoryOptions = {
             ...connectOptions,
             getDisplayName,
@@ -147,11 +147,14 @@ export default function connectAdvanced(
         const usePureOnlyMemo = pure ? useMemo : callback => callback();
 
         function ConnectFunction(props) {
+            console.log("=====connectFunction===>", props);
             const [propsContext, forwardedRef, wrapperProps] = useMemo(() => {
                 // Distinguish between actual "data" props that were passed to the wrapper component,
                 // and values needed to control behavior (forwarded refs, alternate context instances).
                 // To maintain the wrapperProps object reference, memoize this destructuring.
                 const { forwardedRef, ...wrapperProps } = props;
+
+                // console.log("=====connectFunction===>", forwardedRef);
                 return [props.context, forwardedRef, wrapperProps];
             }, [props]);
 
@@ -164,6 +167,8 @@ export default function connectAdvanced(
                     ? propsContext
                     : Context;
             }, [propsContext, Context]);
+
+            console.log("=====connectFunction==1=>", Context);
 
             // Retrieve the store and ancestor subscription via context, if available
             const contextValue = useContext(ContextToUse);
@@ -186,6 +191,8 @@ export default function connectAdvanced(
                     `React context consumer to ${displayName} in connect options.`
             );
 
+            console.log("===didStoreComeFromProps1===>", didStoreComeFromProps);
+            console.log("===didStoreComeFromProps2===>", didStoreComeFromContext);
             // Based on the previous check, one of these must be true
             const store = didStoreComeFromProps
                 ? props.store
@@ -347,7 +354,7 @@ export default function connectAdvanced(
 
                         // If the child props _did_ change (or we caught an error), this wrapper component needs to re-render
                         forceComponentUpdateDispatch({
-                            type: 'STORE_UPDATED',
+                            type: "STORE_UPDATED",
                             payload: {
                                 error
                             }
@@ -416,7 +423,9 @@ export default function connectAdvanced(
 
             return renderedChild;
         }
+        
 
+        console.log("pure===>", pure)
         // If we're in "pure" mode, ensure our wrapper component only re-renders when incoming props have changed.
         const Connect = pure ? React.memo(ConnectFunction) : ConnectFunction;
 

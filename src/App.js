@@ -8,6 +8,7 @@ import { Router, Route, Switch, Link } from 'react-router-dom';
 import MyContext from './pages/context/mycontext';
 import RouterWrap from './router';
 
+
 function App() {
     const handleClick = () => {
         // setval((val += 1));

@@ -1,14 +1,16 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 // import
-import MyContext from '../context/mycontext';
+import MyContext from "../context/mycontext";
 // import store from '../../store/index';
-import { connect } from '../../packages/react-redux';
+import { connect } from "../../packages/react-redux";
 
-const B = ({ dispatch, num = 0 }) => {
+const B = props => {
+    // console.log("===B===>", props);
+    const { dispatch, num = 0 } = props;
     const handleClick = () => {
-        console.log('1========+>', 1);
+        // console.log('1========+>', 1);
         dispatch({
-            type: 'ADD_B_NUM',
+            type: "ADD_B_NUM",
             payload: {
                 num: Math.random()
             }
@@ -18,7 +20,7 @@ const B = ({ dispatch, num = 0 }) => {
         <div>
             <div>B 页面</div>
 
-            <div style={{ height: '30px' }}></div>
+            <div style={{ height: "30px" }}></div>
 
             <button onClick={handleClick}>click1</button>
 
@@ -30,6 +32,6 @@ const B = ({ dispatch, num = 0 }) => {
 // export default B;
 
 export default connect(state => {
-    console.log('=======state===1>', state);
+    // console.log('=======state===1>', state);
     return state.b;
 })(B);
