@@ -4,16 +4,83 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Document</title>
+        <style>
+            #out {
+                width: 300px;
+                height: 300px;
+                background: rgb(243, 101, 101);
+            }
+
+            #middle {
+                width: 200px;
+                height: 200px;
+                background: rgb(101, 243, 236);
+                margin: 30px auto;
+            }
+
+            #inner {
+                width: 100px;
+                height: 100px;
+                background: rgb(167, 101, 243);
+                margin: 15px auto;
+            }
+        </style>
     </head>
     <body>
-        <script>
-            let ary = ["a", "b", "c"];
+        <input type="text" id="inp" />
 
-            let c = ary.reduce((accumulator, currentValu, index) => {
-                console.log(accumulator, currentValu, index);
-                return String(accumulator) + currentValu;
-            });
-            console.log(c)
+        <div id="out">
+            最外层元素
+            <div id="middle">
+                中间层元素
+                <div id="inner">
+                    最内层元素
+                </div>
+            </div>
+        </div>
+
+        <script>
+            out.addEventListener(
+                "click",
+                function(e) {
+                    console.log("最外层元素");
+                },
+                true
+            );
+            middle.addEventListener(
+                "click",
+                function(e) {
+                    console.log("中间层元素");
+                },
+                true
+            );
+            inner.addEventListener(
+                "click",
+                function(e) {
+                    console.log("最内层元素");
+                },
+                true
+            );
+
+            window.onpopstate = function(event) {
+                alert(
+                    "location: " +
+                        document.location +
+                        ", state: " +
+                        JSON.stringify(event.state)
+                );
+            };
+
+            console.log(window.history);
+            // out.onclick = function(e) {
+            //     console.log("最外层元素");
+            // };
+            // middle.onclick = function(e) {
+            //     console.log("中间层元素");
+            // };
+            // inner.onclick = function(e) {
+            //     console.log("最内层元素");
+            // };
         </script>
     </body>
 </html>

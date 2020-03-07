@@ -22,6 +22,7 @@ function createTransitionManager() {
         // TODO: If another transition starts while we're still confirming
         // the previous one, we may end up in a weird state. Figure out the
         // best way to handle this.
+        console.log("null====>", prompt);
         if (prompt != null) {
             const result =
                 typeof prompt === "function"
@@ -43,7 +44,9 @@ function createTransitionManager() {
                 // Return false from a transition hook to cancel the transition.
                 callback(result !== false);
             }
+            console.log("null====>", prompt);
         } else {
+            console.log("null====>", prompt);
             callback(true);
         }
     }

@@ -31,13 +31,11 @@ const LinkAnchor = forwardRef(
         forwardedRef
     ) => {
         const { target } = rest;
-        // console.log("===>target", navigate);
-        // console.log("===>rest", rest);
-        // console.log("===>onClick", onClick);
 
         let props = {
             ...rest,
             onClick: event => {
+                console.log("link=====>", onClick);
                 try {
                     if (onClick) onClick(event);
                 } catch (ex) {
@@ -97,6 +95,9 @@ const Link = forwardRef(
                         resolveToLocation(to, context.location),
                         context.location
                     );
+                    console.log("%c---+++++---", "color:red");
+                    console.log(replace);
+                    console.log("%c---+++++---", "color:red");
 
                     const href = location ? history.createHref(location) : "";
                     const props = {

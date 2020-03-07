@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 // import
-import MyContext from '../context/mycontext';
+import MyContext from "../context/mycontext";
 
 class A extends Component {
     constructor(props) {
@@ -8,13 +8,28 @@ class A extends Component {
     }
 
     componentDidMount() {
-        console.log('a===>props', this.props);
+        console.log("a===>props", this.props);
     }
 
-    handleClick = () => {};
+    handleClick = () => {
+
+        window.history.pushState(
+            {
+                foo: "bar"
+            },
+            "page",
+            "/b"
+        );
+    };
 
     render() {
-        return <div className="123">a</div>;
+        return (
+            <div className="123">
+                a
+                <br />
+                <button onClick={() => this.handleClick()}>click=>b</button>
+            </div>
+        );
     }
 }
 export default A;
