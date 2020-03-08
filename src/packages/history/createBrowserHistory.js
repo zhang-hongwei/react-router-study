@@ -88,12 +88,17 @@ function createBrowserHistory(props = {}) {
     const transitionManager = createTransitionManager();
 
     function setState(nextState) {
+        console.log("event==state==>1", "监听", history);
+        console.log("event==state==>2", "监听", nextState);
+
         Object.assign(history, nextState);
+        console.log("event==state==>3", "监听", history);
         history.length = globalHistory.length;
         transitionManager.notifyListeners(history.location, history.action);
     }
 
     function handlePopState(event) {
+        console.log("event==handlePopState==>", event);
         // Ignore extraneous popstate events in WebKit.
         if (isExtraneousPopstateEvent(event)) return;
         handlePop(getDOMLocation(event.state));
@@ -111,7 +116,7 @@ function createBrowserHistory(props = {}) {
             setState();
         } else {
             const action = "POP";
-            console.log("null====>", prompt);
+
             transitionManager.confirmTransitionTo(
                 location,
                 action,
@@ -187,6 +192,7 @@ function createBrowserHistory(props = {}) {
 
                 const href = createHref(location);
                 const { key, state } = location;
+                console.log("location======onok=>>>", location);
 
                 if (canUseHistory) {
                     globalHistory.pushState({ key, state }, null, href);
