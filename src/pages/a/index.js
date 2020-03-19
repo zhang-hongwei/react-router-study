@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 // import
+import { connect } from "../../packages/react-redux";
 import MyContext from "../context/mycontext";
 
 class A extends Component {
@@ -12,7 +13,6 @@ class A extends Component {
     }
 
     handleClick = () => {
-
         window.history.pushState(
             {
                 foo: "bar"
@@ -33,6 +33,8 @@ class A extends Component {
     }
 }
 export default A;
+
+// export default connect(state => ({ ...state }))(A);
 
 // render() {
 //     return (

@@ -3,21 +3,17 @@ import React, { Component } from "react";
 import MyContext from "../context/mycontext";
 // import store from '../../store/index';
 import { connect } from "../../packages/react-redux";
-
-
+import {
+    useHistory,
+    useLocation,
+    useParams,
+    useRouteMatch
+} from "../../packages/react-router";
 
 const B = props => {
     // console.log("===B===>", props);
     const { dispatch, num = 0 } = props;
     const handleClick = () => {
-        // console.log('1========+>', 1);
-        // dispatch({
-        //     type: "ADD_B_NUM",
-        //     payload: {
-        //         num: Math.random()
-        //     }
-        // });
-
         console.log(window.history);
         // console.log(window.location);
         window.history.pushState(
@@ -28,6 +24,7 @@ const B = props => {
             "/a"
         );
     };
+
     return (
         <div>
             <div>B 页面</div>
