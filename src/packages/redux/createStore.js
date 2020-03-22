@@ -286,3 +286,6 @@ export default function createStore(reducer, preloadedState, enhancer) {
     };
     return store;
 }
+
+
+// 1. createStore提供了两种创建store的方式，

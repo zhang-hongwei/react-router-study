@@ -1,34 +1,40 @@
-import resolvePathname from 'resolve-pathname';
-import valueEqual from 'value-equal';
+import resolvePathname from "resolve-pathname";
+import valueEqual from "value-equal";
 
-import { parsePath } from './PathUtils.js';
+import { parsePath } from "./PathUtils.js";
 
 export function createLocation(path, state, key, currentLocation) {
+    console.log("createLocation===1=>", path);
+    // console.log("createLocation===2=>", state);
+    // console.log("createLocation===3=>", key);
+    console.log("createLocation===4=>", currentLocation);
     let location;
-    if (typeof path === 'string') {
+    if (typeof path === "string") {
         // Two-arg form: push(path, state)
         location = parsePath(path);
         location.state = state;
+
+        console.log("createLocation===1parse=>", location);
 
         // console.log('===>parsePath===>', location);
     } else {
         // One-arg form: push(location)
         location = { ...path };
 
-        if (location.pathname === undefined) location.pathname = '';
+        if (location.pathname === undefined) location.pathname = "";
 
         if (location.search) {
-            if (location.search.charAt(0) !== '?')
-                location.search = '?' + location.search;
+            if (location.search.charAt(0) !== "?")
+                location.search = "?" + location.search;
         } else {
-            location.search = '';
+            location.search = "";
         }
 
         if (location.hash) {
-            if (location.hash.charAt(0) !== '#')
-                location.hash = '#' + location.hash;
+            if (location.hash.charAt(0) !== "#")
+                location.hash = "#" + location.hash;
         } else {
-            location.hash = '';
+            location.hash = "";
         }
 
         if (state !== undefined && location.state === undefined)
@@ -37,13 +43,14 @@ export function createLocation(path, state, key, currentLocation) {
 
     try {
         location.pathname = decodeURI(location.pathname);
+        console.log("createLocation===1pathname=>", location);
     } catch (e) {
         if (e instanceof URIError) {
             throw new URIError(
                 'Pathname "' +
                     location.pathname +
                     '" could not be decoded. ' +
-                    'This is likely caused by an invalid percent-encoding.'
+                    "This is likely caused by an invalid percent-encoding."
             );
         } else {
             throw e;
@@ -56,7 +63,7 @@ export function createLocation(path, state, key, currentLocation) {
         // Resolve incomplete/relative pathname relative to current location.
         if (!location.pathname) {
             location.pathname = currentLocation.pathname;
-        } else if (location.pathname.charAt(0) !== '/') {
+        } else if (location.pathname.charAt(0) !== "/") {
             location.pathname = resolvePathname(
                 location.pathname,
                 currentLocation.pathname
@@ -65,7 +72,7 @@ export function createLocation(path, state, key, currentLocation) {
     } else {
         // When there is no prior location and pathname is empty, set it to /
         if (!location.pathname) {
-            location.pathname = '/';
+            location.pathname = "/";
         }
     }
 

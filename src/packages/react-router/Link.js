@@ -1,6 +1,4 @@
 import React from "react";
-// import { __RouterContext as RouterContext } from "./react-router";
-
 import RouterContext from "./RouterContext.js";
 import PropTypes from "prop-types";
 import invariant from "tiny-invariant";
@@ -32,10 +30,11 @@ const LinkAnchor = forwardRef(
     ) => {
         const { target } = rest;
 
+        console.log("activeStyle====link==<>>>", rest);
+
         let props = {
             ...rest,
             onClick: event => {
-                console.log("link=====>", onClick);
                 try {
                     if (onClick) onClick(event);
                 } catch (ex) {
@@ -95,9 +94,6 @@ const Link = forwardRef(
                         resolveToLocation(to, context.location),
                         context.location
                     );
-                    console.log("%c---+++++---", "color:red");
-                    console.log(replace);
-                    console.log("%c---+++++---", "color:red");
 
                     const href = location ? history.createHref(location) : "";
                     const props = {
@@ -111,13 +107,9 @@ const Link = forwardRef(
                             const method = replace
                                 ? history.replace
                                 : history.push;
-
                             method(location);
                         }
                     };
-                    // console.log("===Link==>method", replace);
-                    // console.log("===Link==>history", history);
-                    // console.log("===Link==>location", props);
 
                     // React 15 compat
                     if (forwardRefShim !== forwardRef) {

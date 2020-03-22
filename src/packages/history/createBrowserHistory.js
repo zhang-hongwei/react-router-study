@@ -54,13 +54,9 @@ function createBrowserHistory(props = {}) {
     function getDOMLocation(historyState) {
         const { key, state } = historyState || {};
         const { pathname, search, hash } = window.location;
-        // console.log("%c---+++++---", "color:red");
-        // console.log(hash);
-        // console.log("%c---+++++---", "color:red");
+
         let path = pathname + search + hash;
-        // console.log("%c---+++++---", "color:red");
-        // console.log(path);
-        // console.log("%c---+++++---", "color:red");
+
         warning(
             !basename || hasBasename(path, basename),
             "You are attempting to use a basename on a page whose URL path does not begin " +
@@ -88,8 +84,8 @@ function createBrowserHistory(props = {}) {
     const transitionManager = createTransitionManager();
 
     function setState(nextState) {
-        console.log("event==state==>1", "监听", history);
-        console.log("event==state==>2", "监听", nextState);
+        // console.log("event==state==>1", "监听", history);
+        // console.log("event==state==>2", "监听", nextState);
 
         Object.assign(history, nextState);
         console.log("event==state==>3", "监听", history);
@@ -165,6 +161,7 @@ function createBrowserHistory(props = {}) {
     }
 
     function push(path, state) {
+        console.log("createLocation===pathpath=>", path);
         warning(
             !(
                 typeof path === "object" &&

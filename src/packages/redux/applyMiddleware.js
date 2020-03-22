@@ -1,4 +1,4 @@
-    import compose from './compose';
+import compose from "./compose";
 
 export default function applyMiddleware(...middlewares) {
     // console.log('======middlewares==============>', middlewares);
@@ -7,8 +7,8 @@ export default function applyMiddleware(...middlewares) {
         const store = createStore(reducer, ...args);
         let dispatch = () => {
             throw new Error(
-                'Dispatching while constructing your middleware is not allowed. ' +
-                    'Other middleware would not be applied to this dispatch.'
+                "Dispatching while constructing your middleware is not allowed. " +
+                    "Other middleware would not be applied to this dispatch."
             );
         };
 
@@ -17,8 +17,12 @@ export default function applyMiddleware(...middlewares) {
             dispatch: (action, ...args) => {
                 // console.log('触发=action==>', action);
                 return dispatch(action, ...args);
-            }
+            },
+            name: "测试"
         };
+
+        console.log("middlewares============>>>", middlewares);
+
         const chain = middlewares.map(middleware => {
             let a = middleware(middlewareAPI);
 

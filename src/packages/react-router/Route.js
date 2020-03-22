@@ -45,16 +45,15 @@ class Route extends React.Component {
                     // console.log("route===>context===>context改变===>", context);
 
                     const location = this.props.location || context.location;
+                    // console.log("location1===>", location);
+                    // console.log("location1===>", this.props);
                     const match = this.props.computedMatch
                         ? this.props.computedMatch // <Switch> already computed the match for us
                         : this.props.path
                         ? matchPath(location.pathname, this.props)
                         : context.match;
 
-                    // console.log(
-                    //     "matchPath==>",
-                    //     matchPath(location.pathname, this.props)
-                    // );
+                    // console.log("resultAry=1111=>", match);
 
                     // console.log("matchPath==>match", match);
 
@@ -73,7 +72,7 @@ class Route extends React.Component {
                     // console.log("props.match==>", props.match);
                     // console.log("props.match==>children", children);
                     // console.log("props.match==>component", component);
-                    // console.log("props.children==>", component);
+                    // console.log("resultAry.children==>", children);
 
                     return (
                         <RouterContext.Provider value={props}>

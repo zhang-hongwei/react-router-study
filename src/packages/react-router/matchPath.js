@@ -10,8 +10,9 @@ function compilePath(path, options) {
 
     if (pathCache[path]) return pathCache[path];
 
-    const keys = [];
+    const keys = [{ name: "zhang" }];
     const regexp = pathToRegexp(path, keys, options);
+    // console.log()
     const result = { regexp, keys };
 
     if (cacheCount < cacheLimit) {
@@ -19,18 +20,10 @@ function compilePath(path, options) {
         cacheCount++;
     }
 
+    console.log("resultAry====1>", result);
+
     return result;
 }
-
-let cc = compilePath("/abc", {
-    end: false,
-    strict: false,
-    sensitive: false
-});
-
-const match1 = cc.regexp.exec("/abc");
-// console.log("/abc==>", cc);
-// console.log("/abc==>", match1);
 
 /**
  * Public API for matching a URL pathname to a path.
@@ -50,10 +43,15 @@ function matchPath(pathname, options = {}) {
     // console.log("=====>>>>paths", paths);
 
     const resultAry = paths.reduce((matched, path) => {
-        // console.log("reduce==>", matched, path);
+        // console.log("resultAry==>", matched, path);
+        // console.log("resultAry==>", 1);
 
         if (!path && path !== "") return null;
-        if (matched) return matched;
+        if (matched) {
+            return matched;
+        }
+        // console.log("resultAry==>", 2);
+        // console.log("resultAry==>", 2);
 
         const { regexp, keys } = compilePath(path, {
             end: exact,
@@ -61,9 +59,12 @@ function matchPath(pathname, options = {}) {
             sensitive
         });
         const match = regexp.exec(pathname);
-
+        // console.log("resultAry===key2>", keys);
+        // console.log("resultAry===2>", match);
+        // console.log("resultAry===pathname>", pathname);
+        // console.log("resultAry===path>", path);
         if (!match) return null;
-
+        // console.log("resultAry===》匹配到");
         const [url, ...values] = match;
         const isExact = pathname === url;
 
@@ -74,11 +75,15 @@ function matchPath(pathname, options = {}) {
             url: path === "/" && url === "" ? "/" : url, // the matched portion of the URL
             isExact, // whether or not we matched exactly
             params: keys.reduce((memo, key, index) => {
+                // console.log("resultAry====result==>", values);
+                // console.log("resultAry====result==>", values[index]);
                 memo[key.name] = values[index];
                 return memo;
             }, {})
         };
     }, null);
+
+    console.log("resultAry===结果==>", resultAry);
 
     return resultAry;
 }

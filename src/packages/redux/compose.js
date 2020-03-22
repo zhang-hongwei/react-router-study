@@ -18,6 +18,14 @@ export default function compose(...funcs) {
     if (funcs.length === 1) {
         return funcs[0];
     }
+    console.log(
+        "middlewares  ===>",
+        funcs.reduce((a, b) => {
+            // debugger;
+            console.log("middlewares  ===>", a);
+            return (...args) => a(b(...args));
+        })
+    );
 
     return funcs.reduce((a, b) => {
         // debugger;
