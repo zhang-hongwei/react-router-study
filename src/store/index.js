@@ -18,7 +18,7 @@ function logger1(params) {
             // console.log('======>.>next===>', next);
             // Call the next dispatch method in the middleware chain.
             // debugger;
-            const returnValue = next(action1);  // next2 = action2 函数
+            const returnValue = next(action1); // next2 = action2 函数
 
             console.log("=========?>>>next", next);
             console.log("middlewares after dispatch =====1a>", getState());
@@ -41,7 +41,7 @@ function logger2(params) {
             console.log("middlewares will dispatch =====2>", action2);
 
             // Call the next dispatch method in the middleware chain.
-            const returnValue = next(action2);  // next2 = action3 函数
+            const returnValue = next(action2); // next2 = action3 函数
             console.log(
                 "middlewares state after dispatch =====2a>",
                 getState()

@@ -1,26 +1,25 @@
-
-'use strict';
+"use strict";
 
 /**
  * Module dependencies.
  */
 
-const isGeneratorFunction = require('is-generator-function');
-const debug = require('debug')('koa:application');
-const onFinished = require('on-finished');
-const response = require('./response');
-const compose = require('koa-compose');
-const isJSON = require('koa-is-json');
-const context = require('./context');
-const request = require('./request');
-const statuses = require('statuses');
-const Emitter = require('events');
-const util = require('util');
-const Stream = require('stream');
-const http = require('http');
-const only = require('only');
-const convert = require('koa-convert');
-const deprecate = require('depd')('koa');
+const isGeneratorFunction = require("is-generator-function");
+const debug = require("debug")("koa:application");
+const onFinished = require("on-finished");
+const response = require("./response");
+const compose = require("koa-compose");
+const isJSON = require("koa-is-json");
+const context = require("./context");
+const request = require("./request");
+const statuses = require("statuses");
+const Emitter = require("events");
+const util = require("util");
+const Stream = require("stream");
+const http = require("http");
+const only = require("only");
+const convert = require("koa-convert");
+const deprecate = require("depd")("koa");
 
 /**
  * Expose `Application` class.
@@ -40,7 +39,7 @@ module.exports = class Application extends Emitter {
     this.proxy = false;
     this.middleware = [];
     this.subdomainOffset = 2;
-    this.env = process.env.NODE_ENV || 'development';
+    this.env = process.env.NODE_ENV || "development";
     this.context = Object.create(context);
     this.request = Object.create(request);
     this.response = Object.create(response);
@@ -60,7 +59,7 @@ module.exports = class Application extends Emitter {
    */
 
   listen(...args) {
-    debug('listen');
+    debug("listen");
     const server = http.createServer(this.callback());
     return server.listen(...args);
   }
@@ -74,11 +73,7 @@ module.exports = class Application extends Emitter {
    */
 
   toJSON() {
-    return only(this, [
-      'subdomainOffset',
-      'proxy',
-      'env'
-    ]);
+    return only(this, ["subdomainOffset", "proxy", "env"]);
   }
 
   /**
@@ -103,14 +98,18 @@ module.exports = class Application extends Emitter {
    */
 
   use(fn) {
-    if (typeof fn !== 'function') throw new TypeError('middleware must be a function!');
+    console.log(fn);
+    if (typeof fn !== "function")
+      throw new TypeError("middleware must be a function!");
     if (isGeneratorFunction(fn)) {
-      deprecate('Support for generators will be removed in v3. ' +
-                'See the documentation for examples of how to convert old middleware ' +
-                'https://github.com/koajs/koa/blob/master/docs/migration.md');
+      deprecate(
+        "Support for generators will be removed in v3. " +
+          "See the documentation for examples of how to convert old middleware " +
+          "https://github.com/koajs/koa/blob/master/docs/migration.md"
+      );
       fn = convert(fn);
     }
-    debug('use %s', fn._name || fn.name || '-');
+    debug("use %s", fn._name || fn.name || "-");
     this.middleware.push(fn);
     return this;
   }
@@ -124,9 +123,10 @@ module.exports = class Application extends Emitter {
    */
 
   callback() {
+    console.log("this.middleware===>", this.middleware);
     const fn = compose(this.middleware);
 
-    if (!this.listenerCount('error')) this.on('error', this.onerror);
+    if (!this.listenerCount("error")) this.on("error", this.onerror);
 
     const handleRequest = (req, res) => {
       const ctx = this.createContext(req, res);
@@ -148,7 +148,9 @@ module.exports = class Application extends Emitter {
     const onerror = err => ctx.onerror(err);
     const handleResponse = () => respond(ctx);
     onFinished(res, onerror);
-    return fnMiddleware(ctx).then(handleResponse).catch(onerror);
+    return fnMiddleware(ctx)
+      .then(handleResponse)
+      .catch(onerror);
   }
 
   /**
@@ -159,8 +161,8 @@ module.exports = class Application extends Emitter {
 
   createContext(req, res) {
     const context = Object.create(this.context);
-    const request = context.request = Object.create(this.request);
-    const response = context.response = Object.create(this.response);
+    const request = (context.request = Object.create(this.request));
+    const response = (context.response = Object.create(this.response));
     context.app = request.app = response.app = this;
     context.req = request.req = response.req = req;
     context.res = request.res = response.res = res;
@@ -180,14 +182,15 @@ module.exports = class Application extends Emitter {
    */
 
   onerror(err) {
-    if (!(err instanceof Error)) throw new TypeError(util.format('non-error thrown: %j', err));
+    if (!(err instanceof Error))
+      throw new TypeError(util.format("non-error thrown: %j", err));
 
     if (404 == err.status || err.expose) return;
     if (this.silent) return;
 
     const msg = err.stack || err.toString();
     console.error();
-    console.error(msg.replace(/^/gm, '  '));
+    console.error(msg.replace(/^/gm, "  "));
     console.error();
   }
 };
@@ -213,7 +216,7 @@ function respond(ctx) {
     return res.end();
   }
 
-  if ('HEAD' == ctx.method) {
+  if ("HEAD" == ctx.method) {
     if (!res.headersSent && isJSON(body)) {
       ctx.length = Buffer.byteLength(JSON.stringify(body));
     }
@@ -228,7 +231,7 @@ function respond(ctx) {
       body = ctx.message || String(code);
     }
     if (!res.headersSent) {
-      ctx.type = 'text';
+      ctx.type = "text";
       ctx.length = Buffer.byteLength(body);
     }
     return res.end(body);
@@ -236,7 +239,7 @@ function respond(ctx) {
 
   // responses
   if (Buffer.isBuffer(body)) return res.end(body);
-  if ('string' == typeof body) return res.end(body);
+  if ("string" == typeof body) return res.end(body);
   if (body instanceof Stream) return body.pipe(res);
 
   // body: json

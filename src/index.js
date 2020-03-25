@@ -155,7 +155,7 @@ ReactDOM.render(
             <Switch>
                 <Route path="/a" component={A}></Route>
                 <Route path="/b" component={B}></Route>
-                <Route path="/b" component={B}></Route>
+                <Route path="/c" component={C}></Route>
             </Switch>
         </Router>
     </Provider>,
